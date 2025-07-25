@@ -1,0 +1,5 @@
+Day-3
+
+Completed all 3 layers (Controller, Service, Repository)
+Tested the post users, get user, get all users, delete user requests using postman
+added validations to every field in the entity class
