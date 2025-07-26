@@ -1,0 +1,6 @@
+Day 4 Completed
+
+Handled Global Exception Handling
+a) MethodArgumentNotValidException
+b) Jackson Type coercion avoiding
+c) DataIntegrityViolationException
