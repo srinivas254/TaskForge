@@ -1,5 +1,6 @@
 package com.taskforge.backend.exception;
 
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +37,15 @@ public class GlobalException {
 
       errors.put("error","HttpMessageNotReadable:" + hm.getMostSpecificCause().getMessage());
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+    }
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Map<String,String>> handleConstraintViolation(ConstraintViolationException cv){
+        Map<String,String> map = new HashMap<>();
+
+        cv.getConstraintViolations().forEach(cov -> {
+            map.put(cov.getPropertyPath().toString(), cov.getMessage());
+        });
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
     }
 
 }

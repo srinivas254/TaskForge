@@ -1,5 +1,7 @@
 package com.taskforge.backend.controller;
 
+import com.taskforge.backend.dto.UserRequestDto;
+import com.taskforge.backend.dto.UserResponseDto;
 import com.taskforge.backend.entity.User;
 import com.taskforge.backend.service.UserService;
 import jakarta.validation.Valid;
@@ -21,20 +23,20 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> createUser(@Valid @RequestBody User user){
-        User savedUser = userService.saveUser(user);
+    public ResponseEntity<UserResponseDto> createUser(@Valid @RequestBody UserRequestDto user){
+        UserResponseDto savedUser = userService.saveUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable  Long id){
-        User savedUser = userService.findUserById(id);
+    public ResponseEntity<UserResponseDto> getUserById(@PathVariable  Long id){
+        UserResponseDto savedUser = userService.findUserById(id);
         return ResponseEntity.status(HttpStatus.OK).body(savedUser);
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<User>> getAllUsers(){
-        List<User> users = userService.findAllUsers();
+    public ResponseEntity<List<UserResponseDto>> getAllUsers(){
+        List<UserResponseDto> users = userService.findAllUsers();
         return ResponseEntity.status(HttpStatus.OK).body(users);
     }
 
@@ -42,6 +44,12 @@ public class UserController {
     public ResponseEntity<User> deleteUserById(@PathVariable Long id){
         userService.deleteUserById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PatchMapping("/users/{id}")
+    public ResponseEntity<UserResponseDto> updateNameById(@PathVariable Long id,@RequestParam String name){
+        UserResponseDto updatedUser = userService.updateUsernameById(id,name);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedUser);
     }
 
 }

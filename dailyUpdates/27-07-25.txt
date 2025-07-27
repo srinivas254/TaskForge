@@ -1,0 +1,8 @@
+Day 5 completed
+
+a) Handled Dto made request and response dto and handled
+it well in controller and service layer
+b) handled the constraintviolationexception
+c) learnt and implemented about PathVariable, RequestParam and RequestMapping
+d) tested successfully a patch request of updating user name of an object
+using request parameters and path variable without a json requestdto only a responsedto
