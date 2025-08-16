@@ -1,0 +1,3 @@
+Day 6 implemented
+dynamic pagination and sorting
+can be set through query parameters while calling the api
