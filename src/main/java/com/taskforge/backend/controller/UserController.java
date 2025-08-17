@@ -1,7 +1,6 @@
 package com.taskforge.backend.controller;
 
-import com.taskforge.backend.dto.UserRequestDto;
-import com.taskforge.backend.dto.UserResponseDto;
+import com.taskforge.backend.dto.*;
 import com.taskforge.backend.entity.User;
 import com.taskforge.backend.service.UserService;
 import jakarta.validation.Valid;
@@ -12,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 public class UserController {
@@ -24,10 +22,16 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/users")
-    public ResponseEntity<UserResponseDto> createUser(@Valid @RequestBody UserRequestDto user){
-        UserResponseDto savedUser = userService.saveUser(user);
+    @PostMapping("/register")
+    public ResponseEntity<UserRegistrationResponseDto> registerUser(@Valid @RequestBody UserRequestDto user){
+        UserRegistrationResponseDto savedUser = userService.saveUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<UserLoginResponseDto> loginUser(@Valid @RequestBody UserLoginRequestDto userLoginRequestDto){
+        UserLoginResponseDto loginUser = userService.loginAUser(userLoginRequestDto);
+        return ResponseEntity.status(HttpStatus.OK).body(loginUser);
     }
 
     @GetMapping("/users/{id}")

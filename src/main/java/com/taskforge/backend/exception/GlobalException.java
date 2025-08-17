@@ -47,5 +47,24 @@ public class GlobalException {
         });
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
     }
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Map<String,String>> handleUserNotFoundException(UserNotFoundException unf){
+        Map<String,String> map = new HashMap<>();
+        map.put("error","User not found");
+        map.put("message",unf.getMessage());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(map);
+    }
+    @ExceptionHandler(InvalidPasswordException.class)
+    public ResponseEntity<Map<String,String>> handleInvalidPasswordException(InvalidPasswordException ip){
+        Map<String,String> map = new HashMap<>();
+        map.put("error","Invalid password");
+        map.put("message",ip.getMessage());
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(map);
+    }
+
+
+
 
 }
